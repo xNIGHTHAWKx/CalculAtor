@@ -4,4 +4,5 @@
     <string name="advanced_button">Advanced</string>
     <string name="about_button">About</string>
     <string name="exit_button">Exit</string>
+    <string name="about_text">I\'m Kamil Jurek, third year student of bachelor of science in computer science. It\'s my first Android application created for classes \"Projektowanie Aplikacji Moblinych\".</string>
 </resources>
