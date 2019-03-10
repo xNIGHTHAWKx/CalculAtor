@@ -5,4 +5,23 @@
     <string name="about_button">About</string>
     <string name="exit_button">Exit</string>
     <string name="about_text">I\'m Kamil Jurek, third year student of bachelor of science in computer science. It\'s my first Android application created for classes \"Projektowanie Aplikacji Moblinych\".</string>
+    <string name="all_clear_button">AC</string>
+    <string name="addition_button">+</string>
+    <string name="subtraction_button">-</string>
+    <string name="multipliaction_button">*</string>
+    <string name="division_button">/</string>
+    <string name="sign_change_button">+/-</string>
+    <string name="clear_button">C/CE</string>
+    <string name="result_button">=</string>
+    <string name="dot_button">.</string>
+    <string name="button0">0</string>
+    <string name="button1">1</string>
+    <string name="button2">2</string>
+    <string name="button3">3</string>
+    <string name="button4">4</string>
+    <string name="button5">5</string>
+    <string name="button6">6</string>
+    <string name="button7">7</string>
+    <string name="button8">8</string>
+    <string name="button9">9</string>
 </resources>
