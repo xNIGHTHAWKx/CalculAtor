@@ -17,7 +17,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/button10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/result_view" />
 
     <Button
         android:id="@+id/button10"
@@ -30,7 +30,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button9"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/result_view" />
 
     <Button
         android:id="@+id/button11"
@@ -225,14 +225,20 @@
         app:layout_constraintTop_toBottomOf="@+id/button20" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/result_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:digits="0123456789."
+        android:gravity="center"
         android:ems="10"
-        android:inputType="numberSigned"
-        android:text="2.555"
+        android:inputType="numberDecimal"
+        android:text="@string/result_view"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
