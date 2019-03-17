@@ -18,10 +18,24 @@ public class SimpleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_simple);
         resultView = (TextView) findViewById(R.id.result_view);
         resultView.setKeyListener(null);
-        resultBuilder = new StringBuilder("");
-        refresh();
+        if(savedInstanceState != null) {
+            resultBuilder = new StringBuilder(savedInstanceState.getString("Result"));
+            refresh();
+        }
+        else {
+            resultBuilder = new StringBuilder("");
+            refresh();
+        }
 
         button1 = (Button) findViewById(R.id.button1);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+       TextView resultView = (TextView) findViewById(R.id.result_view);
+       String tmp = resultView.getText().toString();
+       savedInstanceState.putString("Result", tmp);
+       super.onSaveInstanceState(savedInstanceState);
     }
 
     public void refresh() {
