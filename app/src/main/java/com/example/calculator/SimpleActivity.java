@@ -10,7 +10,9 @@ public class SimpleActivity extends AppCompatActivity {
 
     StringBuilder resultBuilder;
     TextView resultView;
-    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    int firstValueLength;
+    double valueOne, valueTwo;
+    //Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +22,19 @@ public class SimpleActivity extends AppCompatActivity {
         resultView.setKeyListener(null);
         if(savedInstanceState != null) {
             resultBuilder = new StringBuilder(savedInstanceState.getString("Result"));
+            firstValueLength = savedInstanceState.getInt("Length");
+            valueOne = savedInstanceState.getDouble("ValueOne");
+            valueTwo = savedInstanceState.getDouble("ValueTwo");
             refresh();
         }
         else {
             resultBuilder = new StringBuilder("");
+            firstValueLength = 0;
+            valueOne = 0.0;
+            valueTwo = 0.0;
             refresh();
         }
 
-        button1 = (Button) findViewById(R.id.button1);
     }
 
     @Override
@@ -35,6 +42,9 @@ public class SimpleActivity extends AppCompatActivity {
        TextView resultView = (TextView) findViewById(R.id.result_view);
        String tmp = resultView.getText().toString();
        savedInstanceState.putString("Result", tmp);
+       savedInstanceState.putInt("Length", firstValueLength);
+       savedInstanceState.putDouble("ValueOne", valueOne);
+       savedInstanceState.putDouble("ValueTwo", valueTwo);
        super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -64,17 +74,82 @@ public class SimpleActivity extends AppCompatActivity {
 
     public void dotButtonClicked(View view) { resultBuilder.append("."); refresh();}
 
-    public void equalClicked(View view) { } //TODO
+    public void equalClicked(View view) {
+        char operationSign = (resultView.getText() + "").charAt(firstValueLength);
+        valueTwo = Double.parseDouble((resultView.getText() + "").substring(firstValueLength+1));
+        clearResult();
+        switch (operationSign) {
+            case '+': {
+                double result = valueOne + valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
 
-    public void plusButtonClicked(View view) { resultBuilder.append("+"); refresh();}
+            case '-': {
+                double result = valueOne - valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
 
-    public void subButtonClicked(View view) { resultBuilder.append("-"); refresh();}
+            case '*': {
+                double result = valueOne * valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
 
-    public void timesButtonClicked(View view) { resultBuilder.append("*"); refresh();}
+            case '/': {
+                double result = valueOne / valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
+        }
+    }
 
-    public void byButtonClicked(View view) { resultBuilder.append("/"); refresh();}
+    public void plusButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("+");
+        refresh();
+    }
+
+    public void subButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("-");
+        refresh();}
+
+    public void timesButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("*");
+        refresh();
+    }
+
+    public void byButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("/");
+        refresh();}
 
     public void allClearButtonClicked(View view) { resultBuilder.delete(0, resultBuilder.length()); refresh();}
 
     public void clearButtonClicked(View view) { resultBuilder.deleteCharAt(resultBuilder.length()-1); refresh();}
+
+    public void clearResult() { resultBuilder.delete(0, resultBuilder.length()); refresh();}
 }
