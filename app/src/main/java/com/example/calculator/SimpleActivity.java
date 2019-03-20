@@ -147,9 +147,17 @@ public class SimpleActivity extends AppCompatActivity {
         resultBuilder.append("/");
         refresh();}
 
-    public void allClearButtonClicked(View view) { resultBuilder.delete(0, resultBuilder.length()); refresh();}
+    public void allClearButtonClicked(View view) {
+        resultBuilder.delete(0, resultBuilder.length());
+        refresh();
+    }
 
-    public void clearButtonClicked(View view) { resultBuilder.deleteCharAt(resultBuilder.length()-1); refresh();}
+    public void clearButtonClicked(View view) {
+        if (!(resultBuilder.toString().equals(""))) {
+            resultBuilder.deleteCharAt(resultBuilder.length() - 1);
+            refresh();
+        }
+    }
 
     public void clearResult() { resultBuilder.delete(0, resultBuilder.length()); refresh();}
 }
