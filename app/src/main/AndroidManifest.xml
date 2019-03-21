@@ -16,8 +16,18 @@
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-                android:configChanges="orientation|screenSize"/>
+                android:configChanges="orientation|screenSize"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".AdvancedActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:configChanges="orientation|screenSize"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"

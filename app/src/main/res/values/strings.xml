@@ -25,4 +25,12 @@
     <string name="button8">8</string>
     <string name="button9">9</string>
     <string name="result_view">0.0</string>
+    <string name="sin_button">sin</string>
+    <string name="cos_button">cos</string>
+    <string name="tan_button">tan</string>
+    <string name="ln_button">ln</string>
+    <string name="sqrt_button">sqrt</string>
+    <string name="pow2_button">x^2</string>
+    <string name="powy_button">x^y</string>
+    <string name="log_button">log</string>
 </resources>

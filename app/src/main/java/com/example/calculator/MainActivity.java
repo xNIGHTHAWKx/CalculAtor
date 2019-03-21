@@ -18,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void advancedButton(View view) {
+        Intent intent = new Intent(this, AdvancedActivity.class);
+        startActivity(intent);
+    }
+
     public void showAbout(View view) {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
