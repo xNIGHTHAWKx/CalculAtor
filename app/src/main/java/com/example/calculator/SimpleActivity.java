@@ -13,6 +13,7 @@ public class SimpleActivity extends AppCompatActivity {
     int firstValueLength;
     double valueOne, valueTwo;
     //Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    Button plusButton, subButton, timesButton, byButton, equalButton, dotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,14 @@ public class SimpleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_simple);
         resultView = (TextView) findViewById(R.id.result_view);
         resultView.setKeyListener(null);
+
+        plusButton = (Button) findViewById(R.id.plusButton);
+        subButton = (Button) findViewById(R.id.subButton);
+        timesButton = (Button) findViewById(R.id.timesButton);
+        byButton = (Button) findViewById(R.id.byButton);
+        equalButton = (Button) findViewById(R.id.equalButton);
+        dotButton = (Button) findViewById(R.id.dotButton);
+
         if(savedInstanceState != null) {
             resultBuilder = new StringBuilder(savedInstanceState.getString("Result"));
             firstValueLength = savedInstanceState.getInt("Length");
@@ -33,6 +42,7 @@ public class SimpleActivity extends AppCompatActivity {
             valueOne = 0.0;
             valueTwo = 0.0;
             refresh();
+            blockButtons();
         }
 
     }
@@ -52,25 +62,43 @@ public class SimpleActivity extends AppCompatActivity {
         resultView.setText(resultBuilder);
     }
 
-    public void button1Clicked(View view) { resultBuilder.append("1"); refresh();}
+    public void blockButtons() {
+        plusButton.setEnabled(false);
+        subButton.setEnabled(false);
+        timesButton.setEnabled(false);
+        byButton.setEnabled(false);
+        equalButton.setEnabled(false);
+        dotButton.setEnabled(false);
+    }
 
-    public void button2Clicked(View view) { resultBuilder.append("2"); refresh();}
+    public void unblockButtons() {
+        plusButton.setEnabled(true);
+        subButton.setEnabled(true);
+        timesButton.setEnabled(true);
+        byButton.setEnabled(true);
+        equalButton.setEnabled(true);
+        dotButton.setEnabled(true);
+    }
 
-    public void button3Clicked(View view) { resultBuilder.append("3"); refresh();}
+    public void button1Clicked(View view) { resultBuilder.append("1"); refresh(); unblockButtons();}
 
-    public void button4Clicked(View view) { resultBuilder.append("4"); refresh();}
+    public void button2Clicked(View view) { resultBuilder.append("2"); refresh(); unblockButtons();}
 
-    public void button5Clicked(View view) { resultBuilder.append("5"); refresh();}
+    public void button3Clicked(View view) { resultBuilder.append("3"); refresh(); unblockButtons();}
 
-    public void button6Clicked(View view) { resultBuilder.append("6"); refresh();}
+    public void button4Clicked(View view) { resultBuilder.append("4"); refresh(); unblockButtons();}
 
-    public void button7Clicked(View view) { resultBuilder.append("7"); refresh();}
+    public void button5Clicked(View view) { resultBuilder.append("5"); refresh(); unblockButtons();}
 
-    public void button8Clicked(View view) { resultBuilder.append("8"); refresh();}
+    public void button6Clicked(View view) { resultBuilder.append("6"); refresh(); unblockButtons();}
 
-    public void button9Clicked(View view) { resultBuilder.append("9"); refresh();}
+    public void button7Clicked(View view) { resultBuilder.append("7"); refresh(); unblockButtons();}
 
-    public void button0Clicked(View view) { resultBuilder.append("0"); refresh();}
+    public void button8Clicked(View view) { resultBuilder.append("8"); refresh(); unblockButtons();}
+
+    public void button9Clicked(View view) { resultBuilder.append("9"); refresh(); unblockButtons();}
+
+    public void button0Clicked(View view) { resultBuilder.append("0"); refresh(); unblockButtons();}
 
     public void dotButtonClicked(View view) { resultBuilder.append("."); refresh();}
 
@@ -119,6 +147,8 @@ public class SimpleActivity extends AppCompatActivity {
                 refresh();
             } break;
         }
+
+        unblockButtons();
     }
 
     public void plusButtonClicked(View view) {
@@ -126,13 +156,15 @@ public class SimpleActivity extends AppCompatActivity {
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("+");
         refresh();
+        blockButtons();
     }
 
     public void subButtonClicked(View view) {
         firstValueLength = resultView.length();
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("-");
-        refresh();}
+        refresh();
+    }
 
     public void timesButtonClicked(View view) {
         firstValueLength = resultView.length();
@@ -145,7 +177,8 @@ public class SimpleActivity extends AppCompatActivity {
         firstValueLength = resultView.length();
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("/");
-        refresh();}
+        refresh();
+    }
 
     public void allClearButtonClicked(View view) {
         resultBuilder.delete(0, resultBuilder.length());
@@ -155,6 +188,29 @@ public class SimpleActivity extends AppCompatActivity {
     public void clearButtonClicked(View view) {
         if (!(resultBuilder.toString().equals(""))) {
             resultBuilder.deleteCharAt(resultBuilder.length() - 1);
+            refresh();
+        }
+    }
+
+    public void signChangeClicked(View view) {
+        char operationSign = (resultView.getText() + "").charAt(firstValueLength);
+        if (operationSign != '*' && operationSign != '/') {
+            if (valueOne == 0.0) {
+                if (resultBuilder.charAt(0) == '-') resultBuilder.deleteCharAt(0);
+                else {
+                    String tmp = resultBuilder.toString();
+                    resultBuilder = new StringBuilder("-");
+                    resultBuilder.append(tmp);
+                }
+            } else {
+                String tmp = resultBuilder.toString();
+                resultBuilder = new StringBuilder(tmp.substring(0, firstValueLength));
+                if (tmp.charAt(firstValueLength) == '+') resultBuilder.append("-");
+                else if (tmp.charAt(firstValueLength) == '-') resultBuilder.append("+");
+                else {
+                }
+                resultBuilder.append(tmp.substring(firstValueLength + 1, tmp.length()));
+            }
             refresh();
         }
     }
