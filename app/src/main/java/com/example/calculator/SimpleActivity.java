@@ -159,5 +159,28 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
+    public void signChangeClicked(View view) {
+        char operationSign = (resultView.getText() + "").charAt(firstValueLength);
+        if (operationSign != '*' && operationSign != '/') {
+            if (valueOne == 0.0) {
+                if (resultBuilder.charAt(0) == '-') resultBuilder.deleteCharAt(0);
+                else {
+                    String tmp = resultBuilder.toString();
+                    resultBuilder = new StringBuilder("-");
+                    resultBuilder.append(tmp);
+                }
+            } else {
+                String tmp = resultBuilder.toString();
+                resultBuilder = new StringBuilder(tmp.substring(0, firstValueLength));
+                if (tmp.charAt(firstValueLength) == '+') resultBuilder.append("-");
+                else if (tmp.charAt(firstValueLength) == '-') resultBuilder.append("+");
+                else {
+                }
+                resultBuilder.append(tmp.substring(firstValueLength + 1, tmp.length()));
+            }
+            refresh();
+        }
+    }
+
     public void clearResult() { resultBuilder.delete(0, resultBuilder.length()); refresh();}
 }

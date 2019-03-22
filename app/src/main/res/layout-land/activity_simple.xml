@@ -282,6 +282,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:onClick="signChangeClicked"
         android:text="@string/sign_change_button"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/dotButton"
