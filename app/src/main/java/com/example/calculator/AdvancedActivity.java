@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,14 +19,13 @@ public class AdvancedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_advanced);
         resultView = (TextView) findViewById(R.id.result_view);
         resultView.setKeyListener(null);
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             resultBuilder = new StringBuilder(savedInstanceState.getString("Result"));
             firstValueLength = savedInstanceState.getInt("Length");
             valueOne = savedInstanceState.getDouble("ValueOne");
             valueTwo = savedInstanceState.getDouble("ValueTwo");
             refresh();
-        }
-        else {
+        } else {
             resultBuilder = new StringBuilder("");
             firstValueLength = 0;
             valueOne = 0.0;
@@ -49,72 +49,124 @@ public class AdvancedActivity extends AppCompatActivity {
         resultView.setText(resultBuilder);
     }
 
-    public void button1Clicked(View view) { resultBuilder.append("1"); refresh();}
+    public void button1Clicked(View view) {
+        resultBuilder.append("1");
+        refresh();
+    }
 
-    public void button2Clicked(View view) { resultBuilder.append("2"); refresh();}
+    public void button2Clicked(View view) {
+        resultBuilder.append("2");
+        refresh();
+    }
 
-    public void button3Clicked(View view) { resultBuilder.append("3"); refresh();}
+    public void button3Clicked(View view) {
+        resultBuilder.append("3");
+        refresh();
+    }
 
-    public void button4Clicked(View view) { resultBuilder.append("4"); refresh();}
+    public void button4Clicked(View view) {
+        resultBuilder.append("4");
+        refresh();
+    }
 
-    public void button5Clicked(View view) { resultBuilder.append("5"); refresh();}
+    public void button5Clicked(View view) {
+        resultBuilder.append("5");
+        refresh();
+    }
 
-    public void button6Clicked(View view) { resultBuilder.append("6"); refresh();}
+    public void button6Clicked(View view) {
+        resultBuilder.append("6");
+        refresh();
+    }
 
-    public void button7Clicked(View view) { resultBuilder.append("7"); refresh();}
+    public void button7Clicked(View view) {
+        resultBuilder.append("7");
+        refresh();
+    }
 
-    public void button8Clicked(View view) { resultBuilder.append("8"); refresh();}
+    public void button8Clicked(View view) {
+        resultBuilder.append("8");
+        refresh();
+    }
 
-    public void button9Clicked(View view) { resultBuilder.append("9"); refresh();}
+    public void button9Clicked(View view) {
+        resultBuilder.append("9");
+        refresh();
+    }
 
-    public void button0Clicked(View view) { resultBuilder.append("0"); refresh();}
+    public void button0Clicked(View view) {
+        resultBuilder.append("0");
+        refresh();
+    }
 
-    public void dotButtonClicked(View view) { resultBuilder.append("."); refresh();}
+    public void dotButtonClicked(View view) {
+        resultBuilder.append(".");
+        refresh();
+    }
 
     public void equalClicked(View view) {
         char operationSign = (resultView.getText() + "").charAt(firstValueLength);
-        valueTwo = Double.parseDouble((resultView.getText() + "").substring(firstValueLength+1));
+        valueTwo = Double.parseDouble((resultView.getText() + "").substring(firstValueLength + 1));
         clearResult();
         switch (operationSign) {
             case '+': {
                 double result = valueOne + valueTwo;
                 String tmp;
-                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
-                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
                 } else tmp = String.valueOf(result);
                 resultBuilder = new StringBuilder(tmp);
                 refresh();
-            } break;
+            }
+            break;
 
             case '-': {
                 double result = valueOne - valueTwo;
                 String tmp;
-                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
-                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
                 } else tmp = String.valueOf(result);
                 resultBuilder = new StringBuilder(tmp);
                 refresh();
-            } break;
+            }
+            break;
 
             case '*': {
                 double result = valueOne * valueTwo;
                 String tmp;
-                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
-                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
                 } else tmp = String.valueOf(result);
                 resultBuilder = new StringBuilder(tmp);
                 refresh();
-            } break;
+            }
+            break;
 
             case '/': {
                 double result = valueOne / valueTwo;
                 String tmp;
-                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
-                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
                 } else tmp = String.valueOf(result);
                 resultBuilder = new StringBuilder(tmp);
                 refresh();
-            } break;
+            }
+            break;
+
+            case '^': {
+                double result = 1;
+                int border = (int) valueTwo;
+                for (int i = 0; i < border; i++) {
+                    result = result * valueOne;
+                }
+                String tmp;
+                if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            }
+            break;
         }
     }
 
@@ -181,5 +233,88 @@ public class AdvancedActivity extends AppCompatActivity {
         }
     }
 
-    public void clearResult() { resultBuilder.delete(0, resultBuilder.length()); refresh();}
+    public void clearResult() {
+        resultBuilder.delete(0, resultBuilder.length());
+        refresh();
+    }
+
+    //Advanced functionality below
+
+    public void toTheSquareButtonClicked(View view) {
+        double value = Double.parseDouble(resultBuilder.toString());
+        double valueSquared = value * value;
+        String tmp;
+        if (String.valueOf(valueSquared).substring(String.valueOf(valueSquared).length() - 1).equals("0")) {
+            tmp = String.valueOf(valueSquared).substring(0, String.valueOf(valueSquared).length() - 2);
+        } else tmp = String.valueOf(valueSquared);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
+
+    public void toThePowerOfYButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("^");
+        refresh();
+    }
+
+    public void sqrtButtonClicked(View view) {
+        double value = Math.sqrt(Double.valueOf(resultBuilder.toString()));
+        String tmp;
+        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+        } else tmp = String.valueOf(value);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
+
+    public void naturalLogarithmButtonClicked(View view) {
+        double value = Math.log(Double.valueOf(resultBuilder.toString()));
+        String tmp;
+        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+        } else tmp = String.valueOf(value);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
+
+    public void decimalLogarithmButtonClicked(View view) {
+        double value = Math.log10(Double.valueOf(resultBuilder.toString()));
+        String tmp;
+        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+        } else tmp = String.valueOf(value);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
+
+    public void sinusButtonClicked(View view) {
+        double value = Math.sin(Double.valueOf(resultBuilder.toString()));
+        String tmp;
+        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+        } else tmp = String.valueOf(value);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
+
+    public void cosinusButtonClicked(View view) {
+        double value = Math.cos(Double.valueOf(resultBuilder.toString()));
+        String tmp;
+        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+        } else tmp = String.valueOf(value);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
+
+    public void tangensButtonClicked(View view) {
+        double value = Math.tan(Double.valueOf(resultBuilder.toString()));
+        String tmp;
+        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+        } else tmp = String.valueOf(value);
+        resultBuilder = new StringBuilder(tmp);
+        refresh();
+    }
 }
