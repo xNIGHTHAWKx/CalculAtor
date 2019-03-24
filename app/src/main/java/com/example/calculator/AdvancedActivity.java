@@ -2,6 +2,7 @@ package com.example.calculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class AdvancedActivity extends AppCompatActivity {
@@ -47,4 +48,138 @@ public class AdvancedActivity extends AppCompatActivity {
     public void refresh() {
         resultView.setText(resultBuilder);
     }
+
+    public void button1Clicked(View view) { resultBuilder.append("1"); refresh();}
+
+    public void button2Clicked(View view) { resultBuilder.append("2"); refresh();}
+
+    public void button3Clicked(View view) { resultBuilder.append("3"); refresh();}
+
+    public void button4Clicked(View view) { resultBuilder.append("4"); refresh();}
+
+    public void button5Clicked(View view) { resultBuilder.append("5"); refresh();}
+
+    public void button6Clicked(View view) { resultBuilder.append("6"); refresh();}
+
+    public void button7Clicked(View view) { resultBuilder.append("7"); refresh();}
+
+    public void button8Clicked(View view) { resultBuilder.append("8"); refresh();}
+
+    public void button9Clicked(View view) { resultBuilder.append("9"); refresh();}
+
+    public void button0Clicked(View view) { resultBuilder.append("0"); refresh();}
+
+    public void dotButtonClicked(View view) { resultBuilder.append("."); refresh();}
+
+    public void equalClicked(View view) {
+        char operationSign = (resultView.getText() + "").charAt(firstValueLength);
+        valueTwo = Double.parseDouble((resultView.getText() + "").substring(firstValueLength+1));
+        clearResult();
+        switch (operationSign) {
+            case '+': {
+                double result = valueOne + valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
+
+            case '-': {
+                double result = valueOne - valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
+
+            case '*': {
+                double result = valueOne * valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
+
+            case '/': {
+                double result = valueOne / valueTwo;
+                String tmp;
+                if(String.valueOf(result).substring(String.valueOf(result).length()-1).equals("0")) {
+                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length()-2);
+                } else tmp = String.valueOf(result);
+                resultBuilder = new StringBuilder(tmp);
+                refresh();
+            } break;
+        }
+    }
+
+    public void plusButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("+");
+        refresh();
+    }
+
+    public void subButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("-");
+        refresh();
+    }
+
+    public void timesButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("*");
+        refresh();
+    }
+
+    public void byButtonClicked(View view) {
+        firstValueLength = resultView.length();
+        valueOne = Double.parseDouble(resultView.getText() + "");
+        resultBuilder.append("/");
+        refresh();
+    }
+
+    public void allClearButtonClicked(View view) {
+        resultBuilder.delete(0, resultBuilder.length());
+        refresh();
+    }
+
+    public void clearButtonClicked(View view) {
+        if (!(resultBuilder.toString().equals(""))) {
+            resultBuilder.deleteCharAt(resultBuilder.length() - 1);
+            refresh();
+        }
+    }
+
+    public void signChangeClicked(View view) {
+        char operationSign = (resultView.getText() + "").charAt(firstValueLength);
+        if (operationSign != '*' && operationSign != '/') {
+            if (valueOne == 0.0) {
+                if (resultBuilder.charAt(0) == '-') resultBuilder.deleteCharAt(0);
+                else {
+                    String tmp = resultBuilder.toString();
+                    resultBuilder = new StringBuilder("-");
+                    resultBuilder.append(tmp);
+                }
+            } else {
+                String tmp = resultBuilder.toString();
+                resultBuilder = new StringBuilder(tmp.substring(0, firstValueLength));
+                if (tmp.charAt(firstValueLength) == '+') resultBuilder.append("-");
+                else if (tmp.charAt(firstValueLength) == '-') resultBuilder.append("+");
+                else {
+                }
+                resultBuilder.append(tmp.substring(firstValueLength + 1, tmp.length()));
+            }
+            refresh();
+        }
+    }
+
+    public void clearResult() { resultBuilder.delete(0, resultBuilder.length()); refresh();}
 }
