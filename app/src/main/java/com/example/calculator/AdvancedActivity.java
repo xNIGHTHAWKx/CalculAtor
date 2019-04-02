@@ -234,11 +234,7 @@ public class AdvancedActivity extends AppCompatActivity {
             break;
 
             case '^': {
-                double result = 1;
-                int border = (int) valueTwo;
-                for (int i = 0; i < border; i++) {
-                    result = result * valueOne;
-                }
+                double result = Math.pow(valueOne, valueTwo);
                 String tmp;
                 if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
                     tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
@@ -289,7 +285,7 @@ public class AdvancedActivity extends AppCompatActivity {
     public void allClearButtonClicked(View view) {
         resultBuilder.delete(0, resultBuilder.length());
         refresh();
-        blockButtons();
+        unlockButtons();
     }
 
     public void clearButtonClicked(View view) {
@@ -315,9 +311,8 @@ public class AdvancedActivity extends AppCompatActivity {
                     resultBuilder = new StringBuilder(tmp.substring(0, firstValueLength));
                     if (tmp.charAt(firstValueLength) == '+') resultBuilder.append("-");
                     else if (tmp.charAt(firstValueLength) == '-') resultBuilder.append("+");
-                    else {
-                    }
-                    resultBuilder.append(tmp.substring(firstValueLength + 1, tmp.length()));
+                    else if (tmp.charAt(firstValueLength) == '^') resultBuilder.append("^-");
+                    resultBuilder.append(tmp.substring(firstValueLength+1, tmp.length()));
                 }
                 refresh();
             }

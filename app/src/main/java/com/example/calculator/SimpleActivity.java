@@ -247,7 +247,7 @@ public class SimpleActivity extends AppCompatActivity {
     public void allClearButtonClicked(View view) {
         resultBuilder.delete(0, resultBuilder.length());
         refresh();
-        blockButtons();
+        unblockButtons();
     }
 
     public void clearButtonClicked(View view) {
