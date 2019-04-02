@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class AdvancedActivity extends AppCompatActivity {
@@ -12,6 +13,8 @@ public class AdvancedActivity extends AppCompatActivity {
     TextView resultView;
     int firstValueLength;
     double valueOne, valueTwo;
+    Button equalButton, plusButton, subButton, timesButton, byButton, logButton, lnButton,
+    toPowOfYButton, toSquareButton, tanButton, cosButton, sinButton, sqrtButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,21 @@ public class AdvancedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_advanced);
         resultView = (TextView) findViewById(R.id.result_view);
         resultView.setKeyListener(null);
+
+        equalButton = (Button) findViewById(R.id.equalButton);
+        plusButton = (Button) findViewById(R.id.plusButton);
+        subButton = (Button) findViewById(R.id.subButton);
+        timesButton = (Button) findViewById(R.id.timesButton);
+        byButton = (Button) findViewById(R.id.byButton);
+        logButton = (Button) findViewById(R.id.logButton);
+        lnButton = (Button) findViewById(R.id.lnButton);
+        toPowOfYButton = (Button) findViewById(R.id.toPowOfYButton);
+        toSquareButton = (Button) findViewById(R.id.squareButton);
+        tanButton = (Button) findViewById(R.id.tanButton);
+        cosButton = (Button) findViewById(R.id.cosButton);
+        sinButton = (Button) findViewById(R.id.sinButton);
+        sqrtButton = (Button) findViewById(R.id.sqrtButton);
+
         if (savedInstanceState != null) {
             resultBuilder = new StringBuilder(savedInstanceState.getString("Result"));
             firstValueLength = savedInstanceState.getInt("Length");
@@ -31,6 +49,7 @@ public class AdvancedActivity extends AppCompatActivity {
             valueOne = 0.0;
             valueTwo = 0.0;
             refresh();
+            blockButtons();
         }
     }
 
@@ -45,6 +64,38 @@ public class AdvancedActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    public void blockButtons() {
+        equalButton.setEnabled(false);
+        plusButton.setEnabled(false);
+        subButton.setEnabled(false);
+        timesButton.setEnabled(false);
+        byButton.setEnabled(false);
+        logButton.setEnabled(false);
+        lnButton.setEnabled(false);
+        toPowOfYButton.setEnabled(false);
+        toSquareButton.setEnabled(false);
+        tanButton.setEnabled(false);
+        cosButton.setEnabled(false);
+        sinButton.setEnabled(false);
+        sqrtButton.setEnabled(false);
+    }
+
+    public void unlockButtons() {
+        equalButton.setEnabled(true);
+        plusButton.setEnabled(true);
+        subButton.setEnabled(true);
+        timesButton.setEnabled(true);
+        byButton.setEnabled(true);
+        logButton.setEnabled(true);
+        lnButton.setEnabled(true);
+        toPowOfYButton.setEnabled(true);
+        toSquareButton.setEnabled(true);
+        tanButton.setEnabled(true);
+        cosButton.setEnabled(true);
+        sinButton.setEnabled(true);
+        sqrtButton.setEnabled(true);
+    }
+
     public void refresh() {
         resultView.setText(resultBuilder);
     }
@@ -52,51 +103,71 @@ public class AdvancedActivity extends AppCompatActivity {
     public void button1Clicked(View view) {
         resultBuilder.append("1");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button2Clicked(View view) {
         resultBuilder.append("2");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button3Clicked(View view) {
         resultBuilder.append("3");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button4Clicked(View view) {
         resultBuilder.append("4");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button5Clicked(View view) {
         resultBuilder.append("5");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button6Clicked(View view) {
         resultBuilder.append("6");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button7Clicked(View view) {
         resultBuilder.append("7");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button8Clicked(View view) {
         resultBuilder.append("8");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button9Clicked(View view) {
         resultBuilder.append("9");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void button0Clicked(View view) {
         resultBuilder.append("0");
         refresh();
+        if(valueOne == 0) unlockButtons();
+        else equalButton.setEnabled(true);
     }
 
     public void dotButtonClicked(View view) {
@@ -168,6 +239,8 @@ public class AdvancedActivity extends AppCompatActivity {
             }
             break;
         }
+        firstValueLength = 0;
+        valueOne = 0.0;
     }
 
     public void plusButtonClicked(View view) {
@@ -175,6 +248,7 @@ public class AdvancedActivity extends AppCompatActivity {
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("+");
         refresh();
+        blockButtons();
     }
 
     public void subButtonClicked(View view) {
@@ -182,6 +256,7 @@ public class AdvancedActivity extends AppCompatActivity {
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("-");
         refresh();
+        blockButtons();
     }
 
     public void timesButtonClicked(View view) {
@@ -189,6 +264,7 @@ public class AdvancedActivity extends AppCompatActivity {
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("*");
         refresh();
+        blockButtons();
     }
 
     public void byButtonClicked(View view) {
@@ -196,11 +272,13 @@ public class AdvancedActivity extends AppCompatActivity {
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("/");
         refresh();
+        blockButtons();
     }
 
     public void allClearButtonClicked(View view) {
         resultBuilder.delete(0, resultBuilder.length());
         refresh();
+        blockButtons();
     }
 
     public void clearButtonClicked(View view) {
@@ -211,25 +289,27 @@ public class AdvancedActivity extends AppCompatActivity {
     }
 
     public void signChangeClicked(View view) {
-        char operationSign = (resultView.getText() + "").charAt(firstValueLength);
-        if (operationSign != '*' && operationSign != '/') {
-            if (valueOne == 0.0) {
-                if (resultBuilder.charAt(0) == '-') resultBuilder.deleteCharAt(0);
-                else {
+        if (resultView.getText().length() != 0) {
+            char operationSign = (resultView.getText() + "").charAt(firstValueLength);
+            if (operationSign != '*' && operationSign != '/') {
+                if (valueOne == 0.0) {
+                    if (resultBuilder.charAt(0) == '-') resultBuilder.deleteCharAt(0);
+                    else {
+                        String tmp = resultBuilder.toString();
+                        resultBuilder = new StringBuilder("-");
+                        resultBuilder.append(tmp);
+                    }
+                } else {
                     String tmp = resultBuilder.toString();
-                    resultBuilder = new StringBuilder("-");
-                    resultBuilder.append(tmp);
+                    resultBuilder = new StringBuilder(tmp.substring(0, firstValueLength));
+                    if (tmp.charAt(firstValueLength) == '+') resultBuilder.append("-");
+                    else if (tmp.charAt(firstValueLength) == '-') resultBuilder.append("+");
+                    else {
+                    }
+                    resultBuilder.append(tmp.substring(firstValueLength + 1, tmp.length()));
                 }
-            } else {
-                String tmp = resultBuilder.toString();
-                resultBuilder = new StringBuilder(tmp.substring(0, firstValueLength));
-                if (tmp.charAt(firstValueLength) == '+') resultBuilder.append("-");
-                else if (tmp.charAt(firstValueLength) == '-') resultBuilder.append("+");
-                else {
-                }
-                resultBuilder.append(tmp.substring(firstValueLength + 1, tmp.length()));
+                refresh();
             }
-            refresh();
         }
     }
 
@@ -256,6 +336,7 @@ public class AdvancedActivity extends AppCompatActivity {
         valueOne = Double.parseDouble(resultView.getText() + "");
         resultBuilder.append("^");
         refresh();
+        blockButtons();
     }
 
     public void sqrtButtonClicked(View view) {
