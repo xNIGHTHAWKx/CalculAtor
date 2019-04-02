@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdvancedActivity extends AppCompatActivity {
 
@@ -176,6 +177,8 @@ public class AdvancedActivity extends AppCompatActivity {
     }
 
     public void equalClicked(View view) {
+        boolean divisionByZero = false;
+
         char operationSign = (resultView.getText() + "").charAt(firstValueLength);
         valueTwo = Double.parseDouble((resultView.getText() + "").substring(firstValueLength + 1));
         clearResult();
@@ -214,13 +217,19 @@ public class AdvancedActivity extends AppCompatActivity {
             break;
 
             case '/': {
-                double result = valueOne / valueTwo;
-                String tmp;
-                if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
-                    tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
-                } else tmp = String.valueOf(result);
-                resultBuilder = new StringBuilder(tmp);
-                refresh();
+                if (valueTwo != 0.0) {
+                    double result = valueOne / valueTwo;
+                    String tmp;
+                    if (String.valueOf(result).substring(String.valueOf(result).length() - 1).equals("0")) {
+                        tmp = String.valueOf(result).substring(0, String.valueOf(result).length() - 2);
+                    } else tmp = String.valueOf(result);
+                    resultBuilder = new StringBuilder(tmp);
+                    refresh();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You can't divide by zero!", Toast.LENGTH_LONG).show();
+                    blockButtons();
+                    divisionByZero = true;
+                }
             }
             break;
 
@@ -239,6 +248,8 @@ public class AdvancedActivity extends AppCompatActivity {
             }
             break;
         }
+
+        if (!divisionByZero) unlockButtons();
         firstValueLength = 0;
         valueOne = 0.0;
     }
