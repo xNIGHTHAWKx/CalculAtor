@@ -14,6 +14,7 @@ public class AdvancedActivity extends AppCompatActivity {
     TextView resultView;
     int firstValueLength;
     double valueOne, valueTwo;
+    boolean buttonsBlocked;
     Button equalButton, plusButton, subButton, timesButton, byButton, logButton, lnButton,
     toPowOfYButton, toSquareButton, tanButton, cosButton, sinButton, sqrtButton;
 
@@ -43,6 +44,11 @@ public class AdvancedActivity extends AppCompatActivity {
             firstValueLength = savedInstanceState.getInt("Length");
             valueOne = savedInstanceState.getDouble("ValueOne");
             valueTwo = savedInstanceState.getDouble("ValueTwo");
+            buttonsBlocked = savedInstanceState.getBoolean("Block");
+            if (buttonsBlocked) {
+                blockButtons();
+                equalButton.setEnabled(true);
+            }
             refresh();
         } else {
             resultBuilder = new StringBuilder("");
@@ -62,6 +68,7 @@ public class AdvancedActivity extends AppCompatActivity {
         savedInstanceState.putInt("Length", firstValueLength);
         savedInstanceState.putDouble("ValueOne", valueOne);
         savedInstanceState.putDouble("ValueTwo", valueTwo);
+        savedInstanceState.putBoolean("Block", buttonsBlocked);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -79,6 +86,7 @@ public class AdvancedActivity extends AppCompatActivity {
         cosButton.setEnabled(false);
         sinButton.setEnabled(false);
         sqrtButton.setEnabled(false);
+        buttonsBlocked = true;
     }
 
     public void unlockButtons() {
@@ -95,6 +103,7 @@ public class AdvancedActivity extends AppCompatActivity {
         cosButton.setEnabled(true);
         sinButton.setEnabled(true);
         sqrtButton.setEnabled(true);
+        buttonsBlocked = false;
     }
 
     public void refresh() {

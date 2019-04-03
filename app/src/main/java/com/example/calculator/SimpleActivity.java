@@ -13,6 +13,7 @@ public class SimpleActivity extends AppCompatActivity {
     TextView resultView;
     int firstValueLength;
     double valueOne, valueTwo;
+    boolean buttonsBlocked;
     //Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
     Button plusButton, subButton, timesButton, byButton, equalButton, dotButton;
 
@@ -35,6 +36,11 @@ public class SimpleActivity extends AppCompatActivity {
             firstValueLength = savedInstanceState.getInt("Length");
             valueOne = savedInstanceState.getDouble("ValueOne");
             valueTwo = savedInstanceState.getDouble("ValueTwo");
+            buttonsBlocked = savedInstanceState.getBoolean("Block");
+            if (buttonsBlocked) {
+                blockButtons();
+                equalButton.setEnabled(true);
+            }
             refresh();
         }
         else {
@@ -56,6 +62,7 @@ public class SimpleActivity extends AppCompatActivity {
        savedInstanceState.putInt("Length", firstValueLength);
        savedInstanceState.putDouble("ValueOne", valueOne);
        savedInstanceState.putDouble("ValueTwo", valueTwo);
+       savedInstanceState.putBoolean("Block", buttonsBlocked);
        super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -70,6 +77,7 @@ public class SimpleActivity extends AppCompatActivity {
         byButton.setEnabled(false);
         equalButton.setEnabled(false);
         dotButton.setEnabled(false);
+        buttonsBlocked = true;
     }
 
     public void unblockButtons() {
@@ -79,6 +87,7 @@ public class SimpleActivity extends AppCompatActivity {
         byButton.setEnabled(true);
         equalButton.setEnabled(true);
         dotButton.setEnabled(true);
+        buttonsBlocked = false;
     }
 
     public void button1Clicked(View view) {
@@ -247,7 +256,7 @@ public class SimpleActivity extends AppCompatActivity {
     public void allClearButtonClicked(View view) {
         resultBuilder.delete(0, resultBuilder.length());
         refresh();
-        unblockButtons();
+        blockButtons();
     }
 
     public void clearButtonClicked(View view) {
