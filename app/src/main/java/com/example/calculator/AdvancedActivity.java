@@ -45,7 +45,10 @@ public class AdvancedActivity extends AppCompatActivity {
             valueOne = savedInstanceState.getDouble("ValueOne");
             valueTwo = savedInstanceState.getDouble("ValueTwo");
             buttonsBlocked = savedInstanceState.getBoolean("Block");
-            if (buttonsBlocked) blockButtons();
+            if (buttonsBlocked) {
+                blockButtons();
+                equalButton.setEnabled(true);
+            }
             refresh();
         } else {
             resultBuilder = new StringBuilder("");
