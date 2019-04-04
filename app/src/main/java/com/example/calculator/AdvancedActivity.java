@@ -356,32 +356,39 @@ public class AdvancedActivity extends AppCompatActivity {
 
     public void sqrtButtonClicked(View view) {
         double value = Math.sqrt(Double.valueOf(resultBuilder.toString()));
-        String tmp;
-        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
-            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
-        } else tmp = String.valueOf(value);
-        resultBuilder = new StringBuilder(tmp);
-        refresh();
+        if (value > 0) {
+            String tmp;
+            if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+                tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+            } else tmp = String.valueOf(value);
+            resultBuilder = new StringBuilder(tmp);
+            refresh();
+        } else Toast.makeText(getApplicationContext(), "You can't make sqrt of negative number!", Toast.LENGTH_LONG).show();
+
     }
 
     public void naturalLogarithmButtonClicked(View view) {
         double value = Math.log(Double.valueOf(resultBuilder.toString()));
-        String tmp;
-        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
-            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
-        } else tmp = String.valueOf(value);
-        resultBuilder = new StringBuilder(tmp);
-        refresh();
+        if (value > 0) {
+            String tmp;
+            if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+                tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+            } else tmp = String.valueOf(value);
+            resultBuilder = new StringBuilder(tmp);
+            refresh();
+        } else Toast.makeText(getApplicationContext(), "You can't make natural logarithm of negative number!", Toast.LENGTH_LONG).show();
     }
 
     public void decimalLogarithmButtonClicked(View view) {
         double value = Math.log10(Double.valueOf(resultBuilder.toString()));
-        String tmp;
-        if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
-            tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
-        } else tmp = String.valueOf(value);
-        resultBuilder = new StringBuilder(tmp);
-        refresh();
+        if (value > 0) {
+            String tmp;
+            if (String.valueOf(value).substring(String.valueOf(value).length() - 1).equals("0")) {
+                tmp = String.valueOf(value).substring(0, String.valueOf(value).length() - 2);
+            } else tmp = String.valueOf(value);
+            resultBuilder = new StringBuilder(tmp);
+            refresh();
+        } else Toast.makeText(getApplicationContext(), "You can't make decimal logarithm of negative number!", Toast.LENGTH_LONG).show();
     }
 
     public void sinusButtonClicked(View view) {
