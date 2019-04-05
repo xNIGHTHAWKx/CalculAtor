@@ -15,6 +15,7 @@ public class AdvancedActivity extends AppCompatActivity {
     int firstValueLength;
     double valueOne, valueTwo;
     boolean buttonsBlocked;
+    boolean dotBlocked;
     Button equalButton, plusButton, subButton, timesButton, byButton, logButton, lnButton,
     toPowOfYButton, toSquareButton, tanButton, cosButton, sinButton, sqrtButton;
 
@@ -45,6 +46,7 @@ public class AdvancedActivity extends AppCompatActivity {
             valueOne = savedInstanceState.getDouble("ValueOne");
             valueTwo = savedInstanceState.getDouble("ValueTwo");
             buttonsBlocked = savedInstanceState.getBoolean("Block");
+            dotBlocked = savedInstanceState.getBoolean("DotBlock");
             if (buttonsBlocked) {
                 blockButtons();
                 equalButton.setEnabled(true);
@@ -56,6 +58,7 @@ public class AdvancedActivity extends AppCompatActivity {
             valueOne = 0.0;
             valueTwo = 0.0;
             refresh();
+            dotBlocked = false;
             blockButtons();
         }
     }
@@ -69,6 +72,7 @@ public class AdvancedActivity extends AppCompatActivity {
         savedInstanceState.putDouble("ValueOne", valueOne);
         savedInstanceState.putDouble("ValueTwo", valueTwo);
         savedInstanceState.putBoolean("Block", buttonsBlocked);
+        savedInstanceState.putBoolean("DotBlock", dotBlocked);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -181,8 +185,11 @@ public class AdvancedActivity extends AppCompatActivity {
     }
 
     public void dotButtonClicked(View view) {
-        resultBuilder.append(".");
-        refresh();
+        if (!dotBlocked) {
+            resultBuilder.append(".");
+            refresh();
+            dotBlocked = true;
+        }
     }
 
     public void equalClicked(View view) {
